@@ -98,6 +98,13 @@ function HTT_updateUI.UpdateAlways()
 		local dodgeRollCost = GetAbilityCost(28549)
 		local stamina,maxStamina = GetUnitPower("player",POWERTYPE_STAMINA)
 		local dodgeRollDuration = HTT_functions.GetUnitInfo({29721},"player")
+
+		-- Fixes the problem seen in IA when maxStamin is set to 0
+		-- This avoids a divide by zero error later.
+		if maxStamina == 0 then
+			maxStamina = 1
+		end
+		
 		dodgeRollDuration = dodgeRollDuration - 2
 		if dodgeRollDuration < 0 and dodgeRollCost > 0 then
 			staminaLine:SetHidden(false)
